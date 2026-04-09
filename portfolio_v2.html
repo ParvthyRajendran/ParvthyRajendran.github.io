@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parvathy Rajendran — QA Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+<style>
+  :root {
+    --bg:        #F5F2EC;
+    --bg2:       #EDE9E0;
+    --bg3:       #E4DFD3;
+    --accent:    #3D6B4F;
+    --accent2:   #2A4D38;
+    --charcoal:  #2C2C2A;
+    --mid:       #5A5A56;
+    --muted:     #8A8A84;
+    --border:    #D4CFC5;
+    --tag-bg:    #D8EDDF;
+    --tag-text:  #2A4D38;
+    --card-bg:   #FDFAF5;
+    --font-serif: 'DM Serif Display', Georgia, serif;
+    --font-sans:  'DM Sans', sans-serif;
+    --font-mono:  'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--charcoal);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(245,242,236,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; color: var(--mid);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* ── SPA SECTIONS ── */
+  .page {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0; bottom: 0;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+  .page.active { display: block; }
+  .page-inner {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    padding: 3rem 0;
+  }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 3rem; width: 100%; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--charcoal);
+    line-height: 1.2;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── HERO ── */
+  #page-hero { background: var(--bg); }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
+  }
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 1.05;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-name em { color: var(--accent); font-style: italic; }
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--mid);
+    max-width: 900px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+  }
+  .hero-meta {
+    display: flex; align-items: center; gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s 0.45s forwards;
+  }
+  .hero-meta-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--muted); font-weight: 500;
+  }
+  .hero-meta-item svg { width: 14px; height: 14px; }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s 0.55s forwards;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--charcoal); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── ABOUT ── */
+  #page-about { background: var(--bg2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-text p {
+    color: var(--mid);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .stat-number {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+  /* ── SKILLS ── */
+  #page-skills { background: var(--bg); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .skill-group {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .skill-group-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 12px; font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* ── EXPERIENCE ── */
+  #page-experience { background: var(--bg2); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 3rem; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem; top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-4px);
+    border: 2px solid var(--bg2);
+  }
+  .timeline-header { margin-bottom: 0.75rem; }
+  .timeline-role {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+  .timeline-company { font-size: 14px; font-weight: 600; color: var(--accent); margin: 4px 0 2px; }
+  .timeline-meta { font-size: 12px; color: var(--muted); font-family: var(--font-mono); }
+  .timeline-desc { font-size: 14px; color: var(--mid); line-height: 1.75; }
+
+  /* ── PROJECTS ── */
+  #page-projects { background: var(--bg); }
+  #page-projects .page-inner { align-items: flex-start; }
+  .projects-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+  }
+  .project-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(61,107,79,0.08); }
+  .project-left {
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .project-right { padding: 1.5rem 2rem; }
+  .project-type {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .project-name {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--charcoal);
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .project-icons {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 0.75rem;
+    align-items: center;
+  }
+  .project-icons i { font-size: 22px; color: var(--mid); transition: color 0.2s; }
+  .project-icons i:hover { color: var(--accent); }
+  .tech-text {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    background: var(--bg2);
+    color: var(--mid);
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ── EDUCATION ── */
+  #page-education { background: var(--bg2); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+  .edu-degree { font-family: var(--font-serif); font-size: 1.2rem; color: var(--charcoal); margin-bottom: 6px; line-height: 1.3; }
+  .edu-school { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+  .edu-meta { font-size: 12px; color: var(--muted); font-family: var(--font-mono); }
+
+  /* ── CERTIFICATIONS ── */
+  #page-certifications { background: var(--bg); }
+  #page-certifications .page-inner { align-items: flex-start; }
+  .cert-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .cert-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1.25rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: border-color 0.2s;
+  }
+  .cert-item:hover { border-color: var(--accent); }
+  .cert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .cert-name { font-size: 14px; font-weight: 500; color: var(--charcoal); flex: 1; }
+  .cert-issuer { font-size: 12px; color: var(--muted); }
+  .cert-date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  /* ── CONTACT ── */
+  #page-contact { background: var(--charcoal); }
+  #page-contact .section-label { color: #7DC99A; }
+  #page-contact .section-title { color: #F5F2EC; }
+  .contact-desc { font-size: 1rem; color: #A8A89E; margin-bottom: 2.5rem; max-width: 520px; }
+  .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .contact-btn-primary { background: var(--accent); color: #fff; }
+  .contact-btn-primary:hover { background: #4f8a64; }
+  .contact-btn-ghost { background: rgba(255,255,255,0.08); color: #F5F2EC; border: 1px solid rgba(255,255,255,0.15); }
+  .contact-btn-ghost:hover { background: rgba(255,255,255,0.14); }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 12px;
+    color: #555550;
+    font-family: var(--font-mono);
+    background: #222220;
+  }
+
+  @media (max-width: 900px) {
+    .container { padding: 0 2rem; }
+    .about-grid, .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('hero')">Parvathy Rajendran</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('about')">About</a></li>
+    <li><a onclick="showPage('skills')">Skills</a></li>
+    <li><a onclick="showPage('experience')">Experience</a></li>
+    <li><a onclick="showPage('projects')">Projects</a></li>
+    <li><a onclick="showPage('education')">Education</a></li>
+    <li><a onclick="showPage('certifications')">Certifications</a></li>
+    <li><a onclick="showPage('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page active" id="page-hero">
+  <div class="page-inner">
+    <div class="container">
+      <p class="hero-eyebrow">QA Engineer</p>
+      <h1 class="hero-name">Parvathy<br><em>Rajendran</em></h1>
+      <p class="hero-tagline">ISTQB-certified QA engineer with 3+ years testing broadcast streaming apps and SAP enterprise workflows. Manual-first mindset, automation-ready execution.</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Germany
+        </span>
+        <span class="hero-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          ISTQB CTFL v4.0
+        </span>
+        <span class="hero-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          M.Sc. Web Engineering · TU Chemnitz
+        </span>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="showPage('projects')">View Projects</button>
+        <button class="btn btn-outline" onclick="showPage('contact')">Get in Touch</button>
+        <a href="https://www.linkedin.com/in/parvathyrajendran/" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">About</p>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2 class="section-title">Quality is not<br>an accident.</h2>
+          <p>I care about catching what matters. My background spans public broadcasting at MDR and enterprise SAP systems at Cognizant, two very different domains that taught me to adapt quickly, document precisely, and communicate defects clearly to developers and stakeholders alike.</p>
+
+<p>Outside of work, I built my automation skills independently setting up Selenium, Cypress, and GitHub Actions pipelines from scratch to make my testing practice stronger. I hold an M.Sc. in Web Engineering from TU Chemnitz and an ISTQB CTFL v4.0 certification with a score of 34/40.</p>
+        </div>
+        <div>
+          <div class="about-stats">
+            <div class="stat-card">
+              <div class="stat-number">3</div>
+              <div class="stat-label">Years in QA</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">6</div>
+              <div class="stat-label">Projects built</div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-number">34<span style="font-size:1rem">/40</span></div>
+              <div class="stat-label">ISTQB Score</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="page" id="page-skills">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">Skills</p>
+      <h2 class="section-title">What I work with</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Manual Testing</div>
+          <div class="skill-tags">
+            <span class="skill-tag">End-to-End Testing</span><span class="skill-tag">Functional Testing</span><span class="skill-tag">Regression Testing</span><span class="skill-tag">Exploratory Testing</span><span class="skill-tag">Risk-Based Testing</span><span class="skill-tag">UAT</span><span class="skill-tag">Integration Testing</span><span class="skill-tag">Mobile Testing</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Test Automation</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Selenium WebDriver</span><span class="skill-tag">Cucumber BDD</span><span class="skill-tag">Cypress</span><span class="skill-tag">Tricentis Tosca</span><span class="skill-tag">Page Object Model</span><span class="skill-tag">JUnit</span><span class="skill-tag">Maven</span><span class="skill-tag">Allure Reports</span><span class="skill-tag">GitHub Actions CI/CD</span>
+          </div>
+        </div>
+      
+        <div class="skill-group">
+          <div class="skill-group-title">API & Tools</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Postman</span><span class="skill-tag">Swagger</span><span class="skill-tag">Fiddler</span><span class="skill-tag">Jira</span><span class="skill-tag">Confluence</span><span class="skill-tag">QTest</span><span class="skill-tag">Git</span><span class="skill-tag">MySQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Programming Languages</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Java</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Gherkin</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Processes</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Kanban</span><span class="skill-tag">SDLC</span><span class="skill-tag">STLC</span><span class="skill-tag">BDD</span><span class="skill-tag">Waterfall</span><span class="skill-tag">Defect Lifecycle</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Mobile Platforms</div>
+          <div class="skill-tags">
+            <span class="skill-tag">iOS Native</span><span class="skill-tag">Android Native</span><span class="skill-tag">Cross-Device</span><span class="skill-tag">Streaming Apps</span><span class="skill-tag">Chromecast</span><span class="skill-tag">AirPlay</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="page" id="page-experience">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">Experience</p>
+      <h2 class="section-title">Where I've worked</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div class="timeline-role">App Tester <span style="font-size:1rem;color:var(--muted)">(Part-Time)</span></div>
+            <div class="timeline-company">Mitteldeutscher Rundfunk (MDR)</div>
+            <div class="timeline-meta">Apr 2023 – Mar 2025 · Leipzig, Germany</div>
+          </div>
+          <p class="timeline-desc">Tested iOS and Android broadcast streaming applications for one of Germany's leading public media organisations. Responsible for designing end-to-end test validation covering all critical user workflows, and owned release sign-off to confirm functional stability before each version went live. Led integration testing on in-app chat features, identifying message delivery failures before they reached users. Validated API responses using Fiddler and Swagger to verify correct data exchange across releases. Managed the full test documentation cycle in Jira and Confluence, covering test plans, defect tracking, and final reports. Mentored junior testers on defect writing standards and structured exploratory approaches.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <div class="timeline-role">Programmer — Software Testing & Tosca Automation <span style="font-size:1rem;color:var(--muted)">(Full-Time)</span></div>
+            <div class="timeline-company">Cognizant Technology Solutions</div>
+            <div class="timeline-meta">Nov 2019 – Feb 2021 · Coimbatore, India</div>
+          </div>
+          <p class="timeline-desc">Worked as part of a software testing team delivering quality assurance across SAP enterprise systems for large-scale business clients. Designed manual test cases covering functional and end-to-end workflows, and developed a Tricentis Tosca regression suite targeting high-risk SAP modules to maintain automated coverage across release cycles. Led integration testing across SAP system boundaries to detect data-flow failures before they caused downstream impact. Coordinated closely with developers and business analysts throughout the SDLC to surface defects early at each development phase. Reduced manual regression execution time by extending Tosca coverage to repeatable scenarios previously re-run by hand each sprint.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="page" id="page-projects">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Things I've built</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+  <div class="project-left">
+    <div>
+      <div class="project-type">Automation · Portfolio</div>
+      <div class="project-icons">
+        <i class="devicon-selenium-original colored" title="Selenium"></i>
+        <i class="devicon-java-original colored" title="Java"></i>
+        <i class="devicon-cucumber-plain colored" title="Cucumber"></i>
+        <i class="devicon-junit-plain colored" title="JUnit"></i>
+        <i class="devicon-maven-plain colored" title="Maven"></i>
+        <i class="devicon-github-original" title="GitHub Actions"></i>
+      </div>
+    </div>
+    <a href="https://github.com/ParvthyRajendran/orangehrm-automation" target="_blank" class="project-link">View on GitHub ↗</a>
+  </div>
+  <div class="project-right">
+    <div class="project-name">OrangeHRM Test Automation Suite</div>
+     <div class="project-desc">A Selenium WebDriver framework built with Java, Cucumber BDD, and Page Object Model to validate login and employee management workflows on the OrangeHRM demo site. Tagged Gherkin scenarios enable targeted smoke, regression, and module-level test runs via Maven profiles. A GitHub Actions CI/CD pipeline executes headless Chrome tests on every push, with Allure reports automatically published to GitHub Pages for easy reviewer access without local setup.</div>
+  </div>
+</div>
+
+<div class="project-card">
+  <div class="project-left">
+    <div>
+      <div class="project-type">Automation · Portfolio</div>
+      <div class="project-icons">
+            <i class="devicon-cypressio-plain colored" title="Cypress"></i>
+            <i class="devicon-javascript-plain colored" title="JavaScript"></i>
+            <i class="devicon-mocha-plain colored" title="Mocha"></i>
+            <i class="devicon-github-original" title="GitHub Actions"></i>
+          </div>
+    </div>
+    <a href="https://github.com/ParvthyRajendran/Cypress_Tests" target="_blank" class="project-link">View on GitHub ↗</a>
+  </div>
+  <div class="project-right">
+    <div class="project-name">Cypress Web Automation Suite</div>
+          <div class="project-desc">An end-to-end regression suite built with Cypress and Mocha to validate critical user journeys across web workflows. Reusable hooks and precise DOM assertions ensure that failures reflect genuine defects rather than flaky test behaviour. GitHub Actions integration automatically triggers regression checks on every code push, removing the need for manual test execution. Structured test organisation makes it straightforward to extend coverage as new features are added.</div>
+      
+  </div>
+</div>
+
+       <div class="project-card">
+  <div class="project-left">
+    <div>
+      <div class="project-type">Automation · Portfolio</div>
+      <div class="project-icons">
+        <i class="devicon-selenium-original colored" title="Selenium"></i>
+            <i class="devicon-java-original colored" title="Java"></i>
+            <i class="devicon-chrome-plain colored" title="Cross-browser"></i>
+      </div>
+    </div>
+   
+  </div>
+  <div class="project-right">
+    <div class="project-name">UI Validation Automation</div>
+          <div class="project-desc">Automated validation of web form behaviour and UI state transitions across multiple browser configurations using Selenium WebDriver and Java. The Page Object Model pattern separates element locators from test logic, significantly reducing rework whenever the interface changes. Shared components and reusable helper methods allow new test scenarios to be added without rewriting existing scripts, improving long-term maintainability and keeping the test suite scalable as the application grows.</div>
+          
+  </div>
+</div>
+
+        <div class="project-card">
+  <div class="project-left">
+    <div>
+        <div class="project-type">Academic · M.Sc. Thesis</div>
+      <div class="project-icons">
+<i class="devicon-javascript-plain colored" title="JavaScript"></i>
+            <i class="devicon-html5-plain colored" title="HTML5"></i>
+            <i class="devicon-css3-plain colored" title="CSS3"></i>
+            <span class="tech-text">SPARQL</span>
+            <span class="tech-text">Wikidata</span>
+      </div>
+    </div>
+    <a href="https://github.com/ParvthyRajendran/Master-Thesis" target="_blank" class="project-link">View on GitHub ↗</a>
+  </div>
+  <div class="project-right">
+    <div class="project-name">Visual Query Builder for Wikidata</div>
+          <div class="project-desc">A no-code visual tool designed to make academic content on Wikidata accessible to non-technical users who have no knowledge of SPARQL. Users can visually search for publications, authors, and institutions, with inputs automatically converted into SPARQL queries and executed against Wikidata's live database in real time. Formally evaluated with 25 participants, the tool achieved an excellent System Usability Scale score of 86.4, confirming its effectiveness for a broad audience.</div>
+          
+  </div>
+</div>
+
+        <div class="project-card">
+  <div class="project-left">
+    <div>
+      <div class="project-type">Academic · Bachelor's Project</div>
+      <div class="project-icons">
+        <span class="tech-text">Visual Basic</span>
+            <i class="devicon-mysql-plain colored" title="MySQL"></i>
+            <span class="tech-text">Desktop App</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="project-right">
+    <div class="project-name">College Voting System</div>
+          <div class="project-desc">A desktop voting application built with Visual Basic and MySQL to manage college elections end to end. The system supports secure voter authentication, candidate registration, and vote recording, with automated result tabulation replacing error-prone manual ballot counting. Designed to bring reliability and transparency to institutional election processes, ensuring each vote is accurately captured and results are generated consistently without the risk of human calculation errors.</div>
+  </div>
+</div>
+
+<div class="project-card">
+  <div class="project-left">
+    <div>
+      <div class="project-type">Academic · Project</div>
+      <div class="project-icons">
+    <i class="devicon-python-plain colored" title="Python"></i>
+            <i class="devicon-django-plain colored" title="Django"></i>
+            <span class="tech-text">Web App</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="project-right">
+          <div class="project-name">Internal Mark Management System</div>
+          <div class="project-desc">A web application built with Python and Django for recording, managing, and tracking student internal assessment marks across subjects. The system supports structured mark entry, student record management, and backend data handling through a relational database. Built to reduce the administrative burden on teaching staff, it replaces manual spreadsheet-based record-keeping with a centralised digital solution that improves data accuracy, consistency, and accessibility across academic departments.</div>
+  </div>
+</div>      
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="page" id="page-education">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">Education</p>
+      <h2 class="section-title">Academic background</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-degree">M.Sc. Web Engineering</div>
+          <div class="edu-school">Technical University of Chemnitz, Germany</div>
+          <div class="edu-meta">Feb 2026 · Grade: 2.2</div>
+          <p style="margin-top:0.75rem;font-size:13px;color:var(--mid);line-height:1.65;">Thesis: Developing a Domain-Specific Visual Query Builder for Accessing Academic Resources in Wikidata</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">Bachelor of Computer Applications</div>
+          <div class="edu-school">Mahatma Gandhi University, India</div>
+          <div class="edu-meta">May 2019 · Grade: 1.4 · 10th Rank</div>
+          <p style="margin-top:0.75rem;font-size:13px;color:var(--mid);line-height:1.65;">Graduated in the top rank of the batch. Foundation in software development, databases, and computer science fundamentals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div class="page" id="page-certifications">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">Certifications</p>
+      <h2 class="section-title">Credentials</h2>
+      <div class="cert-list">
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">ISTQB Certified Tester Foundation Level (CTFL) v4.0</div>
+    <div class="cert-issuer">Indian Testing Board</div>
+    <div class="cert-date">Oct 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">API Test Automation with Postman</div>
+    <div class="cert-issuer">TestAutomationU</div>
+    <div class="cert-date">Feb 2026</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Setting a Foundation for Successful Test Automation</div>
+    <div class="cert-issuer">TestAutomationU</div>
+    <div class="cert-date">Dec 2025</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">GitHub Actions for Testing</div>
+    <div class="cert-issuer">TestAutomationU</div>
+    <div class="cert-date">Dec 2025</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">End-to-End JavaScript Testing with Cypress.io</div>
+    <div class="cert-issuer">LinkedIn Learning</div>
+    <div class="cert-date">May 2025</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Create Your First Automation Script Using Selenium and Java</div>
+    <div class="cert-issuer">Coursera</div>
+    <div class="cert-date">Dec 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">JPMorgan Chase & Co. — Agile Job Simulation</div>
+    <div class="cert-issuer">Forage</div>
+    <div class="cert-date">Aug 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">SQL for Testers</div>
+    <div class="cert-issuer">LinkedIn Learning</div>
+    <div class="cert-date">Aug 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Software Testing Foundations: Test Techniques</div>
+    <div class="cert-issuer">LinkedIn Learning</div>
+    <div class="cert-date">Aug 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Agile Testing</div>
+    <div class="cert-issuer">LinkedIn Learning</div>
+    <div class="cert-date">Aug 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Programming Foundations: Software Testing / QA</div>
+    <div class="cert-issuer">LinkedIn Learning</div>
+    <div class="cert-date">Aug 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Effective Listening</div>
+    <div class="cert-issuer">LinkedIn Learning</div>
+    <div class="cert-date">Aug 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Foundations of User Experience (UX) Design</div>
+    <div class="cert-issuer">Google</div>
+    <div class="cert-date">Jul 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">UX Design Fundamentals</div>
+    <div class="cert-issuer">California Institute of the Arts</div>
+    <div class="cert-date">Jun 2024</div>
+  </div>
+
+  <div class="cert-item">
+    <div class="cert-dot"></div>
+    <div class="cert-name">Agile with Atlassian Jira</div>
+    <div class="cert-issuer">Atlassian via Coursera</div>
+    <div class="cert-date">Apr 2023</div>
+  </div>
+
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="page-inner">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's connect</h2>
+      <p class="contact-desc">Open to QA and test automation roles at international companies in Germany. Happy to discuss opportunities in English.</p>
+      <div class="contact-links">
+        <a href="mailto:parvathyletharajendran@gmail.com" class="contact-btn contact-btn-primary">✉ Send Email</a>
+        <a href="https://www.linkedin.com/in/parvathyrajendran/" target="_blank" class="contact-btn contact-btn-ghost">LinkedIn ↗</a>
+        <a href="https://github.com/ParvthyRajendran" target="_blank" class="contact-btn contact-btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+  <footer>built by parvathy rajendran · 2025</footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    const link = document.querySelector(`.nav-links a[onclick="showPage('${id}')"]`);
+    if (link) link.classList.add('active');
+  }
+</script>
+</body>
+</html>
